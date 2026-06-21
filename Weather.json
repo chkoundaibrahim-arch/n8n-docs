@@ -1,0 +1,108 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 17
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "acdb132e-1d9d-4234-863e-3c86c9f7e0bd",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "format": "imperial",
+        "cityName": "Paris"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "8ff5dde9-37b6-43ea-8a67-a531face0bac",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "tO0hLQtZmziQtlTZ",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "chkibrahim123@gmail.com",
+        "subject": "weather",
+        "emailType": "text",
+        "message": "=la temperatur et  {{ $json.main.temp }} de max {{ $json.main.temp_max }} et du min {{ $json.main.temp_min }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "0564a279-0d67-4d27-8158-b310e81321e2",
+      "name": "Send a message",
+      "webhookId": "8fe4f92d-9e28-44ea-ab14-9430e02ff7a1",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "MKuvRCM9AmO77xXs",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2567b7b3-44fc-4e4e-ac6d-98e2b347ad41",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5f41ca61632912c4be1fde7b86ffe0ca78f2b916392639dc52ee7b32bf4216a3"
+  },
+  "nodeGroups": [],
+  "id": "YvBIWzK1MmOkxeTq",
+  "tags": []
+}
